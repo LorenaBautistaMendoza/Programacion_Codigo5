@@ -1,0 +1,44 @@
+/* Desarrolla un programa en C que, al recibir como dato n números telefónicos en formato de cadena, lo convierta y escriba de la 
+siguiente manera:
+Número telefónico: 5256284000
+Nueva cadena: (52)-5-6284000
+Ambos números telefónicos deberán ser guardados en un archivo. */
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_NUMEROS 100
+#define MAX_LONGITUD_NUMERO 20
+
+int main() {
+    char numeros[MAX_NUMEROS][MAX_LONGITUD_NUMERO];
+    int n, i;
+    FILE *archivo;
+
+
+    printf("Ingrese el numero de numeros telefonicos que desea ingresar: ");
+    scanf("%d", &n);
+     printf("\n");
+
+
+    for (i = 0; i < n; i++) {
+        printf("Ingrese el numero telefonico %d:", i+1);
+        printf("\n");
+        scanf("%s", numeros[i]);
+    }
+
+    archivo = fopen("numeros.txt", "w");
+
+
+    for (i = 0; i < n; i++) {
+        char nuevoNumero[MAX_LONGITUD_NUMERO + 6];
+        sprintf(nuevoNumero, "(%c%c)-%c-%s", numeros[i][0], numeros[i][1], numeros[i][2], numeros[i] + 3);
+        fprintf(archivo, "Numero telefonico: %s\n", numeros[i]);
+        fprintf(archivo, "Numero de telefono modificado: %s\n\n", nuevoNumero);
+    }
+
+
+    fclose(archivo);
+
+    return 0;
+}
